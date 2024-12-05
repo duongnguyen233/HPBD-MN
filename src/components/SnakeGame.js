@@ -12,7 +12,7 @@ const SnakeGame = () => {
   const [score, setScore] = useState(0);
   const [startTouch, setStartTouch] = useState(null); // For swipe detection
   const [gameOver, setGameOver] = useState(false); // To track game over state
-  const [showFlower, setShowFlower] = useState(false); // To trigger the flower effect
+  const [winTheGame, setWinTheGame] = useState(false);
 
   // Function to reset the game state
   const resetGame = () => {
@@ -24,7 +24,7 @@ const SnakeGame = () => {
     setDirection('RIGHT');
     setScore(0);
     setGameOver(false);
-    setShowFlower(false); // Reset flower effect
+    setWinTheGame(false);
   };
 
   const generateFood = useCallback(() => {
@@ -171,10 +171,9 @@ const SnakeGame = () => {
   // Trigger flower effect if score reaches 10
   useEffect(() => {
     if (score >= 50) {
-      setShowFlower(true);
+      setWinTheGame(true);
       setTimeout(() => {
-        alert('Chụp màn hình để nhận quà!.');
-        setGameOver(true);
+        alert('Chúc mừng bạn đã nhận đc 1 bữa nhậu.\nChụp màn hình để nhận quà!');
       }, 2000); // Wait for 2 seconds before ending the game
     }
   }, [score]);
@@ -230,18 +229,22 @@ const SnakeGame = () => {
         </div>
       )}
 
-      {showFlower && !gameOver && (
+      {winTheGame && (
         <div className="happy-birthday">
           Phần quà của bạn là 1 bữa nhậu 🍲 !
         </div>
       )}
 
-      {gameOver && (
+      {winTheGame ? (
+        <div className="game-over">
+          <button onClick={resetGame} style={{ marginTop: '200px' }}>Restart Game</button>
+        </div>
+      ) : gameOver ? (
         <div className="game-over">
           <div>Game Over!</div>
           <button onClick={resetGame}>Restart Game</button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
