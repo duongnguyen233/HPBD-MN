@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import './SnakeGame.css'; // Ensure the CSS file exists
 
 const SnakeGame = () => {
@@ -26,29 +26,59 @@ const SnakeGame = () => {
     setShowFlower(false); // Reset flower effect
   };
 
-  useEffect(() => {
-    // Listen for keyboard events (arrow keys)
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowUp' && direction !== 'DOWN') {
-        setDirection('UP');
-      } else if (e.key === 'ArrowDown' && direction !== 'UP') {
-        setDirection('DOWN');
-      } else if (e.key === 'ArrowLeft' && direction !== 'RIGHT') {
-        setDirection('LEFT');
-      } else if (e.key === 'ArrowRight' && direction !== 'LEFT') {
-        setDirection('RIGHT');
+  const generateFood = useCallback(() => {
+    const margin = 1;
+    let newFoodX, newFoodY;
+
+    // Loop to find a valid position for the food that doesn't overlap with the snake
+    let foodPositionFound = false;
+
+    while (!foodPositionFound) {
+      // Generate new random food position
+      newFoodX = Math.floor(Math.random() * (20 - 2 * margin)) + margin;
+      newFoodY = Math.floor(Math.random() * (20 - 2 * margin)) + margin;
+
+      // Check if the new food position overlaps with any part of the snake
+      let isValid = true;
+
+      for (let i = 0; i < snake.length; i++) {
+        if (snake[i].x === newFoodX && snake[i].y === newFoodY) {
+          isValid = false;
+          break; // Stop checking as we found a collision
+        }
       }
-    };
 
-    window.addEventListener('keydown', handleKeyDown);
+      if (isValid) {
+        foodPositionFound = true;
+      }
+    }
 
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    // Once a valid position is found, set the new food position
+    setFood({ x: newFoodX, y: newFoodY });
+  }, [snake]);
+
+  // Handle keyboard input for controlling snake
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'ArrowUp' && direction !== 'DOWN') {
+      setDirection('UP');
+    } else if (e.key === 'ArrowDown' && direction !== 'UP') {
+      setDirection('DOWN');
+    } else if (e.key === 'ArrowLeft' && direction !== 'RIGHT') {
+      setDirection('LEFT');
+    } else if (e.key === 'ArrowRight' && direction !== 'LEFT') {
+      setDirection('RIGHT');
+    }
   }, [direction]);
 
   useEffect(() => {
-    // Listen for touch events (for mobile)
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
+
+  // Handle touch events for mobile swipe
+  useEffect(() => {
     const handleTouchStart = (e) => {
       const touchStart = e.touches[0];
       setStartTouch({ x: touchStart.clientX, y: touchStart.clientY });
@@ -87,19 +117,8 @@ const SnakeGame = () => {
     };
   }, [direction, startTouch]);
 
-  useEffect(() => {
-    if (gameOver) return; // If game is over, stop the game loop.
-
-    const gameLoop = setInterval(() => {
-      moveSnake();
-    }, 100);
-
-    return () => {
-      clearInterval(gameLoop);
-    };
-  }, [snake, direction, gameOver]);
-
-  const moveSnake = () => {
+  // Move snake and handle game over logic
+  const moveSnake = useCallback(() => {
     const newSnake = [...snake];
     const head = { ...newSnake[0] };
 
@@ -112,7 +131,7 @@ const SnakeGame = () => {
 
     if (head.x === food.x && head.y === food.y) {
       setScore(score + 1);
-      generateFood();
+      generateFood(); // Now it's defined before use
     } else {
       newSnake.pop();
     }
@@ -122,22 +141,21 @@ const SnakeGame = () => {
     } else {
       setSnake(newSnake);
     }
-  };
+  }, [snake, direction, food, score, generateFood]); // Add generateFood here
 
-  const generateFood = () => {
-    const margin = 1;
+  useEffect(() => {
+    if (gameOver) return; // If game is over, stop the game loop.
 
-    let newFoodX, newFoodY;
+    const gameLoop = setInterval(() => {
+      moveSnake();
+    }, 100);
 
-    // Loop until food doesn't overlap with snake
-    do {
-      newFoodX = Math.floor(Math.random() * (20 - 2 * margin)) + margin;
-      newFoodY = Math.floor(Math.random() * (20 - 2 * margin)) + margin;
-    } while (snake.some(segment => segment.x === newFoodX && segment.y === newFoodY));
+    return () => {
+      clearInterval(gameLoop);
+    };
+  }, [snake, direction, gameOver, moveSnake]);
 
-    setFood({ x: newFoodX, y: newFoodY });
-  };
-
+  // Check if the snake collides with itself
   const checkSelfCollision = (newSnake) => {
     const head = newSnake[0];
     for (let i = 1; i < newSnake.length; i++) {
