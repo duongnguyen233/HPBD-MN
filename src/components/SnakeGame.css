@@ -1,0 +1,139 @@
+/* src/components/SnakeGame.css */
+.game-board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #222;
+  width: 400px;
+  height: 400px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.snake {
+  background-color: #4caf50;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+
+.food {
+  background-color: #f44336;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+}
+
+.score {
+  font-family: Arial, sans-serif;
+  color: white;
+  font-size: 18px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: #ff0;
+  text-align: center;
+}
+
+.game-over button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: #00f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.game-over button:hover {
+  background-color: #0055ff;
+}
+
+.happy-birthday {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff0;
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.5), 0 0 25px #ff00ff, 0 0 5px #ff00ff;
+  animation: pop-up 2s ease-out infinite alternate;
+}
+
+@keyframes pop-up {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.flower-effect {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5rem; /* Larger flower */
+  animation: flowerGrow 3s ease-in-out forwards, flowerAnimation 4s infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flowerGrow {
+  0% {
+    transform: scale(0) rotate(0deg); /* Start with no size and no rotation */
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(45deg); /* Scale up and rotate halfway */
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(360deg); /* Final size and full rotation */
+    opacity: 1;
+  }
+}
+
+@keyframes flowerAnimation {
+  0% {
+    color: #ff69b4; /* Start with pink */
+    text-shadow: 0 0 5px rgba(255, 105, 180, 0.7), 0 0 10px rgba(255, 105, 180, 0.5);
+  }
+  25% {
+    color: #ff1493; /* Deep pink */
+    text-shadow: 0 0 10px rgba(255, 20, 147, 0.7), 0 0 20px rgba(255, 20, 147, 0.5);
+  }
+  50% {
+    color: #da70d6; /* Orchid */
+    text-shadow: 0 0 15px rgba(218, 112, 214, 0.7), 0 0 25px rgba(218, 112, 214, 0.5);
+  }
+  75% {
+    color: #ff6347; /* Tomato */
+    text-shadow: 0 0 20px rgba(255, 99, 71, 0.7), 0 0 30px rgba(255, 99, 71, 0.5);
+  }
+  100% {
+    color: #ff1493; /* Deep pink */
+    text-shadow: 0 0 25px rgba(255, 20, 147, 0.7), 0 0 40px rgba(255, 20, 147, 0.5);
+  }
+}

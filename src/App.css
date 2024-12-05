@@ -1,0 +1,19 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #2ecc71;
+  background-image: linear-gradient(to top left, #2980b9, #16a085, #2ecc71);
+}
+
+header {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 10px;
+  padding: 20px 10px;
+  color: white;
+}
