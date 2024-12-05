@@ -193,13 +193,18 @@ const SnakeGame = () => {
         style={{ left: `${food.x * 20}px`, top: `${food.y * 20}px` }}
       ></div>
 
-      {score > 4 && score <= 6 && !gameOver && (
+      {score > 4 && score <= 9 && !gameOver && (
         <div className="happy-birthday">
           Giỏi quá!
         </div>
       )}
 
-      {score > 6 && !gameOver && (
+      {score > 9 && score <= 19 && !gameOver && (
+        <div className="firework-effect">
+        </div>
+      )}
+
+      {score > 19 && score <= 29 && !gameOver && (
         <div className="happy-birthday">
           Happy Birthday Minh Ngok 🐶!
         </div>
