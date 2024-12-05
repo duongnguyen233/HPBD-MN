@@ -97,16 +97,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 5rem; /* Larger flower */
-  animation: flowerGrow 3s ease-in-out forwards, flowerAnimation 4s infinite;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  animation: flowerGrow 3s ease-in-out infinite, flowerAnimation 4s infinite;
 }
 
 @keyframes flowerGrow {
@@ -144,87 +135,5 @@ body {
   100% {
     color: #ff1493; /* Deep pink */
     text-shadow: 0 0 25px rgba(255, 20, 147, 0.7), 0 0 40px rgba(255, 20, 147, 0.5);
-  }
-}
-
-/* Firework effect container */
-.firework-effect {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 200px;
-  height: 200px;
-  pointer-events: none;
-}
-
-.firework {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: #ff4500;
-  border-radius: 50%;
-  animation: explode 1s forwards;
-}
-
-/* Explosion animation */
-@keyframes explode {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-/* Randomly position and animate firework sparks */
-.firework-effect .firework:nth-child(1) {
-  animation-delay: 0s;
-  top: 50%;
-  left: 50%;
-  animation: explode 1s forwards, spark1 0.7s 1s forwards;
-}
-
-.firework-effect .firework:nth-child(2) {
-  animation-delay: 0.2s;
-  top: 50%;
-  left: 50%;
-  animation: explode 1s forwards, spark2 0.7s 1.2s forwards;
-}
-
-.firework-effect .firework:nth-child(3) {
-  animation-delay: 0.4s;
-  top: 50%;
-  left: 50%;
-  animation: explode 1s forwards, spark3 0.7s 1.4s forwards;
-}
-
-/* Random directions for firework sparks */
-@keyframes spark1 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100px, -100px);
-  }
-}
-
-@keyframes spark2 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(100px, -150px);
-  }
-}
-
-@keyframes spark3 {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-150px, 100px);
   }
 }

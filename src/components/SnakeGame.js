@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './SnakeGame.css'; // Ensure the CSS file exists
 
+
 const SnakeGame = () => {
   const [snake, setSnake] = useState([
     { x: 10, y: 10 }, // Head of the snake
@@ -169,10 +170,10 @@ const SnakeGame = () => {
 
   // Trigger flower effect if score reaches 10
   useEffect(() => {
-    if (score >= 10) {
+    if (score >= 50) {
       setShowFlower(true);
       setTimeout(() => {
-        alert('Game Over! You scored 10 points.');
+        alert('Chụp màn hình để nhận quà!.');
         setGameOver(true);
       }, 2000); // Wait for 2 seconds before ending the game
     }
@@ -199,20 +200,39 @@ const SnakeGame = () => {
         </div>
       )}
 
-      {score > 9 && score <= 19 && !gameOver && (
-        <div className="firework-effect">
+      {score > 9 && score <= 17 && !gameOver && (
+        <div className="flower-effect">
+          🌻
         </div>
       )}
 
-      {score > 19 && score <= 29 && !gameOver && (
+      {score > 17 && score <= 23 && !gameOver && (
+        <div className="flower-effect">
+          🐶
+        </div>
+      )}
+
+      {score > 23 && score <= 29 && !gameOver && (
+        <div className="happy-birthday">
+          Cố lên sắp nhận đc quà r!
+        </div>
+      )}
+
+      {score > 29 && score <= 39 && !gameOver && (
+        <div className="happy-birthday">
+          Xứng đáng nhận 🎁 !
+        </div>
+      )}
+
+      {score > 39 && score <= 49 && !gameOver && (
         <div className="happy-birthday">
           Happy Birthday Minh Ngok 🐶!
         </div>
       )}
 
       {showFlower && !gameOver && (
-        <div className="flower-effect">
-          🌸
+        <div className="happy-birthday">
+          Phần quà của bạn là 1 bữa nhậu 🍲 !
         </div>
       )}
 
