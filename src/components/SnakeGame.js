@@ -87,6 +87,9 @@ const SnakeGame = () => {
     const handleTouchMove = (e) => {
       if (!startTouch) return;
 
+      // Prevent the default scroll behavior
+      e.preventDefault();
+
       const touchMove = e.touches[0];
       const diffX = touchMove.clientX - startTouch.x;
       const diffY = touchMove.clientY - startTouch.y;
