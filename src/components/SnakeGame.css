@@ -1,4 +1,9 @@
 /* src/components/SnakeGame.css */
+body {
+  touch-action: none; /* Prevent touch-based scrolling and zooming */
+}
+
+
 .game-board {
   display: flex;
   justify-content: center;
@@ -8,6 +13,7 @@
   height: 400px;
   position: relative;
   margin: 20px auto;
+  touch-action: none;
 }
 
 .snake {

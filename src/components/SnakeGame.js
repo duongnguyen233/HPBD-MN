@@ -201,7 +201,7 @@ const SnakeGame = () => {
 
       {score > 6 && !gameOver && (
         <div className="happy-birthday">
-          Happy Birthday Minh Ngok!
+          Happy Birthday Minh Ngok 🐶!
         </div>
       )}
 
